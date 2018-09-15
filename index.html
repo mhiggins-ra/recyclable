@@ -6,8 +6,66 @@
     <title>Recyclable/Not Recyclable</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+    <link rel="stylesheet" type="text/css" href="./main.css">
+
+    <!-- Load TensorFlow.js -->
+    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+    <!-- Load Posenet -->
+    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+
+    <!-- Not using ststs.js just yet-->
+    <!--script src="https://rawgit.com/mrdoob/stats.js/master/build/stats.js"></script-->
+    
+    <!-- Using dat.gui for on screen controls (for now)-->
+    <script src="https://rawgit.com/dataarts/dat.gui/master/build/dat.gui.min.js"></script>
+
 </head>
 <body>
-    Initial index page
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            init();
+        });
+    </script>
+
+    <div id="main-container">
+        <video autoplay="true" id="videoElement" class="video"></video>
+        <div>
+            <button class="btn-predict" onclick="predict()">Run prediction</button>
+        </div>
+
+        <div class="recyclable-result-container"></div>
+
+        Detailed prediction info will be shown here
+        <div id="predictionInfoContainer" class="prediction-info-container">
+            <div id="result" class="prediction-info-prediction-result" style="display: none"></div>
+            <div id="predictionError" class="prediction-info-prediction-error" style="display: none">Error has occurred</div>
+            <div id="predictionLoading" class="prediction-info-prediction-analyzing" style="border-color: green; display: none">Analyzing...</div>
+            <div id="modelLoading" class="prediction-info-model-loading" style="border-color: green; display: none">Model loading...</div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const videoWidth = 600;
+        const videoHeight = 500;
+  
+        const video = document.querySelector("#videoElement");
+        
+        video.width = videoWidth;
+        video.height = videoHeight;
+
+        if (navigator.mediaDevices.getUserMedia) {       
+          navigator.mediaDevices.getUserMedia({video: true})
+            .then(function(stream) {
+              video.srcObject = stream;
+            })
+            .catch(function(err0r) {
+              console.log("Something went wrong!");
+            });
+        }
+  
+    </script>
+
+    <script src="./main.js"></script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+.main-container {
+    width: 600px;
+}
+.video {
+    width: 600px;
+    height: 500px;
+}
+
+.prediction-info-container {
+    width: 600px;
+    height: 200px;
+    border-style: solid;
+    text-align: center;
+}
