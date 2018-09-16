@@ -1,3 +1,9 @@
+const COLOR_RED = "#FF0000";          //"red";
+const COLOR_YELLOW = "#FFFF00";       //"yellow";
+const COLOR_YELLOW_GREEN = "#E6E200"; //"peridot";
+const COLOR_GREEN_YELLOW = "#BFFF00"; //"lime";
+const COLOR_GREEN = "#008000";        //"green";
+
 const btnPredictSingleEl = document.querySelector(".btn-predict--single");
 const btnPredictPollEl = document.querySelector(".btn-predict--poll");
 const recyclableResultEl = document.querySelector(".recyclable-result-container");
@@ -101,9 +107,22 @@ const predict = async() => {
     predictions.forEach(prediction => {
       if(!recyclable) {
         if((prediction.className.toLowerCase().indexOf("bottle") !== -1 && prediction.probability > .70)) {
+          if(prediction.probability > .98) {
+            recyclableResultEl.style.color = COLOR_GREEN;
+          }
+          else if(prediction.probability >= .90) {
+            recyclableResultEl.style.color = COLOR_GREEN_YELLOW;
+          }
+          else if(prediction.probability >= .80) {
+            recyclableResultEl.style.color = COLOR_YELLOW_GREEN;
+          }
+          else {
+            recyclableResultEl.style.color = COLOR_YELLOW;
+          }
           recyclableResultEl.innerHTML = "Recyclable";
           recyclable = true;
         } else {
+          recyclableResultEl.style.color = COLOR_RED;
           recyclableResultEl.innerHTML = "Not Recyclable";
         }
       }

@@ -55,6 +55,11 @@ button:active {
   transform: translateY(2px);
 }
 
+button:disabled {
+  background-color: #636363;
+  color: #CCCCCC;
+}
+
 .btn-predict--single {
   left: 0;
 }
