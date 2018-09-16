@@ -128,9 +128,10 @@ function togglePollingPredictions() {
 
 function startPollingPredictions() {
   console.log("Start Polling");
+  predict();
   btnPredictSingleEl.style.display = "none";
   btnPredictPollEl.innerHTML = "Stop Polling";
-  pollingInterval = setInterval(function(){ predict() }, 5000);
+  pollingInterval = setInterval(function(){ predict() }, 10000);
 }
 
 function stopPollingPredictions() {
