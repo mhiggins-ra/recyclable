@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Recyclable/Not Recyclable</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link rel="stylesheet" type="text/css" href="./main.css">
 
@@ -20,23 +19,17 @@
     <script src="https://rawgit.com/dataarts/dat.gui/master/build/dat.gui.min.js"></script>
 
 </head>
+
 <body>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            init();
-        });
-    </script>
-
     <div id="main-container">
         <video autoplay="true" id="videoElement" class="video"></video>
         <div>
-            <button class="btn-predict" onclick="predict()">Run prediction</button>
+            <button class="btn-predict btn-predict--single" onclick="predict()">Run prediction</button>
+            <button class="btn-predict btn-predict--poll" onclick="togglePollingPredictions()">Start Polling</button>
         </div>
 
-        <div class="recyclable-result-container"></div>
+        <div id="recyclable-result-container" class="recyclable-result-container"></div>
 
-        Detailed prediction info will be shown here
         <div id="predictionInfoContainer" class="prediction-info-container">
             <div id="result" class="prediction-info-prediction-result" style="display: none"></div>
             <div id="predictionError" class="prediction-info-prediction-error" style="display: none">Error has occurred</div>
@@ -44,6 +37,8 @@
             <div id="modelLoading" class="prediction-info-model-loading" style="border-color: green; display: none">Model loading...</div>
         </div>
     </div>
+
+    <h1>IS THIS RECYCLABLE?</h1>
 
     <script type="text/javascript">
         const videoWidth = 600;
@@ -54,8 +49,12 @@
         video.width = videoWidth;
         video.height = videoHeight;
 
-        if (navigator.mediaDevices.getUserMedia) {       
-          navigator.mediaDevices.getUserMedia({video: true})
+        if (navigator.mediaDevices.getUserMedia) {
+
+          // Video facingMode can be either "user" for front facing or "environment" for rear facing
+          // { video: { facingMode: "user" } };
+          // { video: { facingMode: "environment" } };
+          navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
             .then(function(stream) {
               video.srcObject = stream;
             })
@@ -67,5 +66,11 @@
     </script>
 
     <script src="./main.js"></script>
+
+    <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                init();
+            });
+        </script>
 </body>
 </html>

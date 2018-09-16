@@ -1,4 +1,5 @@
-const btnPredictEl = document.querySelector(".btn-predict");
+const btnPredictSingleEl = document.querySelector(".btn-predict--single");
+const btnPredictPollEl = document.querySelector(".btn-predict--poll");
 const recyclableResultEl = document.querySelector(".recyclable-result-container");
 const predictionInfoContainerEl = document.querySelector("#predictionInfoContainer");
 const predictionResultEl = document.querySelector("#result");
@@ -55,12 +56,23 @@ function showPredictionInfoSection(elementToShow) {
 
 async function loadModel() {
   showPredictionInfoSection(modelLoadingEl);
-  btnPredictEl.disabled = true;
+
+  var predictButtons = document.querySelectorAll(".btn-predict");
+  var i;
+
+  for (i = 0; i < predictButtons.length; i++) {
+    predictButtons[i].disabled = true;
+  }
 
   model = await mobilenet.load();
 
   showPredictionInfoSection();
-  btnPredictEl.disabled = false;
+  
+  for (i = 0; i < predictButtons.length; i++) {
+    predictButtons[i].disabled = false;
+  }
+
+  console.log("Model Loaded");
 }
 
 const predict = async() => {
@@ -88,7 +100,7 @@ const predict = async() => {
 
     predictions.forEach(prediction => {
       if(!recyclable) {
-        if((prediction.className.toLowerCase().indexOf("bottle") !== -1 && prediction.probability > .80)) {
+        if((prediction.className.toLowerCase().indexOf("bottle") !== -1 && prediction.probability > .70)) {
           recyclableResultEl.innerHTML = "Recyclable";
           recyclable = true;
         } else {
@@ -103,6 +115,31 @@ const predict = async() => {
 
   });
 };
+
+let pollingInterval;
+
+function togglePollingPredictions() {
+  if(!pollingInterval) {
+    startPollingPredictions();
+  } else {
+    stopPollingPredictions();
+  }
+}
+
+function startPollingPredictions() {
+  console.log("Start Polling");
+  btnPredictSingleEl.style.display = "none";
+  btnPredictPollEl.innerHTML = "Stop Polling";
+  pollingInterval = setInterval(function(){ predict() }, 5000);
+}
+
+function stopPollingPredictions() {
+  console.log("Stop Polling");
+  btnPredictSingleEl.style.display = "";
+  btnPredictPollEl.innerHTML = "Start Polling";
+  clearInterval(pollingInterval);
+  pollingInterval = null;
+}
 
 function init() {
   //setupGui([], null);
