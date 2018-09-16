@@ -49,7 +49,6 @@ function setupGui(cameras, net) {
 }*/
 
 function showPredictionInfoSection(elementToShow) {
-  //predictionInfoContainerEl.style.display = "none";
   predictionResultEl.style.display = "none";
   predictionErrorEl.style.display = "none";
   predictionLoadingEl.style.display = "none";
@@ -106,7 +105,7 @@ const predict = async() => {
 
     predictions.forEach(prediction => {
       if(!recyclable) {
-        if((prediction.className.toLowerCase().indexOf("bottle") !== -1 && prediction.probability > .70)) {
+        if((prediction.className.toLowerCase().indexOf("bottle") !== -1 && prediction.probability > .64999)) {
           if(prediction.probability > .98) {
             recyclableResultEl.style.color = COLOR_GREEN;
           }
@@ -150,7 +149,7 @@ function startPollingPredictions() {
   predict();
   btnPredictSingleEl.style.display = "none";
   btnPredictPollEl.innerHTML = "Stop Polling";
-  pollingInterval = setInterval(function(){ predict() }, 10000);
+  pollingInterval = setInterval(function(){ predict() }, 5000);
 }
 
 function stopPollingPredictions() {
