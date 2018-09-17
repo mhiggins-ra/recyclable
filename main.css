@@ -235,3 +235,17 @@ button:disabled {
     font-size: 10px;
   }
 }
+
+@media only screen and (max-width: 750px) {
+  #recyclable-result-container {
+    right: 20px;
+    font-size:20px;
+  }
+  h1 {
+    font-size: 20px;
+    left: 10px;
+    position: absolute;
+    text-align: left;
+    max-width: 38%;
+  }
+}
