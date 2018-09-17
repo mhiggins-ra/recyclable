@@ -118,11 +118,11 @@ const predict = async() => {
           else {
             recyclableResultEl.style.color = COLOR_YELLOW;
           }
-          recyclableResultEl.innerHTML = "Recyclable";
+          recyclableResultEl.innerHTML = "YES";
           recyclable = true;
         } else {
           recyclableResultEl.style.color = COLOR_RED;
-          recyclableResultEl.innerHTML = "Not Recyclable";
+          recyclableResultEl.innerHTML = "NO";
         }
       }
       var newEl = document.createElement("div");

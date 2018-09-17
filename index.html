@@ -23,12 +23,11 @@
 <body>
     <div id="main-container">
         <video autoplay="true" id="videoElement" class="video"></video>
-        <div>
-            <button class="btn-predict btn-predict--single" onclick="predict()">Run prediction</button>
+        <div id="buttons">
+            <button class="btn-predict btn-predict--single" onclick="predict()">Run Prediction</button>
             <button class="btn-predict btn-predict--poll" onclick="togglePollingPredictions()">Start Polling</button>
         </div>
 
-        <div id="recyclable-result-container" class="recyclable-result-container"></div>
 
         <div id="predictionInfoContainer" class="prediction-info-container">
             <div id="result" class="prediction-info-prediction-result" style="display: none"></div>
@@ -37,9 +36,10 @@
             <div id="modelLoading" class="prediction-info-model-loading" style="border-color: green; display: none">Model loading...</div>
         </div>
     </div>
-
-    <h1>IS THIS RECYCLABLE?</h1>
-
+<div id="bottomsection">
+    <div id="yes-no"><h1>IS THIS RECYCLABLE?</h1></div>
+    <div id="recyclable-result-container" class="recyclable-result-container"></div>
+</div>
     <script type="text/javascript">
         const videoWidth = 600;
         const videoHeight = 500;
